@@ -173,7 +173,13 @@ const { ApperClient } = window.ApperSDK;
         orderBy: [
           { fieldName: "order", sorttype: "ASC" }
         ]
-      };
+};
+      
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
       
       const response = await apperClient.fetchRecords("video", params);
       
