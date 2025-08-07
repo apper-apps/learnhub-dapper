@@ -23,13 +23,14 @@ export const videoService = {
           { fieldName: "isPinned", sorttype: "DESC" },
           { fieldName: "createdAt", sorttype: "DESC" }
         ]
-      };
-      
+};
+
+// Initialize ApperClient once for the entire module
 const { ApperClient } = window.ApperSDK;
-      const apperClient = new ApperClient({
-        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
-        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
-      });
+const apperClient = new ApperClient({
+  apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+  apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+});
       const response = await apperClient.fetchRecords("video", params);
       
       if (!response.success) {
@@ -66,13 +67,7 @@ const { ApperClient } = window.ApperSDK;
           { field: { Name: "duration" } },
           { field: { Name: "createdAt" } }
         ]
-      };
-      
-const { ApperClient } = window.ApperSDK;
-      const apperClient = new ApperClient({
-        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
-        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
-      });
+};
       const response = await apperClient.getRecordById("video", parseInt(id), params);
       
       if (!response.success) {
@@ -120,13 +115,7 @@ const { ApperClient } = window.ApperSDK;
           { fieldName: "isPinned", sorttype: "DESC" },
           { fieldName: "createdAt", sorttype: "DESC" }
         ]
-      };
-      
-const { ApperClient } = window.ApperSDK;
-      const apperClient = new ApperClient({
-        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
-        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
-      });
+};
       const response = await apperClient.fetchRecords("video", params);
       
       if (!response.success) {
@@ -175,12 +164,6 @@ const { ApperClient } = window.ApperSDK;
         ]
 };
       
-      const { ApperClient } = window.ApperSDK;
-      const apperClient = new ApperClient({
-        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
-        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
-      });
-      
       const response = await apperClient.fetchRecords("video", params);
       
       if (!response.success) {
@@ -220,13 +203,7 @@ const { ApperClient } = window.ApperSDK;
       
       const params = {
         records: [updateableData]
-      };
-      
-const { ApperClient } = window.ApperSDK;
-      const apperClient = new ApperClient({
-        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
-        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
-      });
+};
       const response = await apperClient.createRecord("video", params);
       
       if (!response.success) {
@@ -285,13 +262,7 @@ const { ApperClient } = window.ApperSDK;
       
       const params = {
         records: [updateableData]
-      };
-      
-const { ApperClient } = window.ApperSDK;
-      const apperClient = new ApperClient({
-        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
-        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
-      });
+};
       const response = await apperClient.updateRecord("video", params);
       
       if (!response.success) {
@@ -354,13 +325,7 @@ const { ApperClient } = window.ApperSDK;
     try {
       const params = {
         RecordIds: [parseInt(id)]
-      };
-      
-const { ApperClient } = window.ApperSDK;
-      const apperClient = new ApperClient({
-        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
-        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
-      });
+};
       const response = await apperClient.deleteRecord("video", params);
       
       if (!response.success) {
