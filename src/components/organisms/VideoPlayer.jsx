@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import ApperIcon from "@/components/ApperIcon";
 import Error from "@/components/ui/Error";
 import Badge from "@/components/atoms/Badge";
-import { videoService } from "@/services/videoService";
+import { videoService } from "@/services/api/videoService";
 
 const formatDuration = (seconds) => {
   const mins = Math.floor(seconds / 60);
