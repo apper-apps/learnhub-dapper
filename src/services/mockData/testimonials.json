@@ -1,0 +1,50 @@
+[
+  {
+    "Id": 1,
+    "userId": "user1",
+    "userName": "김개발",
+    "userAvatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&q=80",
+    "content": "LearnHub Pro에서 React 강의를 수강하고 드디어 프론트엔드 개발자로 취업에 성공했습니다! 체계적인 커리큘럼과 실무 중심의 내용이 정말 도움이 되었어요. 특히 프로젝트 기반 학습이 인상 깊었습니다. 감사합니다! 🎉",
+    "createdAt": "2024-02-15T14:30:00Z"
+  },
+  {
+    "Id": 2,
+    "userId": "user2",
+    "userName": "이프론트",
+    "userAvatar": "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&q=80",
+    "content": "마스터 클래스 정말 추천합니다! 고급 React 패턴 강의를 통해 시니어 개발자로 한 단계 성장할 수 있었어요. 복잡한 개념도 쉽게 설명해주시고, 실무에서 바로 적용할 수 있는 내용들이라 만족도가 매우 높습니다.",
+    "createdAt": "2024-02-14T09:15:00Z"
+  },
+  {
+    "Id": 3,
+    "userId": "user3",
+    "userName": "박풀스택",
+    "userAvatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&q=80",
+    "content": "Next.js 풀스택 강의 완주했습니다! 서버 사이드부터 배포까지 전체 프로세스를 배울 수 있어서 좋았어요. 특히 실제 프로젝트를 만들면서 학습하는 방식이 기억에 오래 남습니다. 다음엔 성능 최적화 과정도 수강할 예정입니다.",
+    "createdAt": "2024-02-13T18:45:00Z"
+  },
+  {
+    "Id": 4,
+    "userId": "user4",
+    "userName": "정타입스크립트",
+    "userAvatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&q=80",
+    "content": "TypeScript 강의 너무 유익했어요! 기초부터 고급 패턴까지 체계적으로 배울 수 있었고, 실무에서 만나는 복잡한 타입 문제들도 해결할 수 있게 되었습니다. 강사님의 설명이 정말 명확하고 이해하기 쉬워요 👍",
+    "createdAt": "2024-02-12T12:20:00Z"
+  },
+  {
+    "Id": 5,
+    "userId": "user5",
+    "userName": "최성능최적화",
+    "userAvatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&q=80",
+    "content": "성능 최적화 전문가 과정 수강 후 회사에서 웹사이트 로딩 속도를 40% 개선했습니다! 이론뿐만 아니라 실제 측정 도구 사용법과 최적화 전략까지 배울 수 있어서 실무에 바로 적용할 수 있었어요.",
+    "createdAt": "2024-02-11T15:30:00Z"
+  },
+  {
+    "Id": 6,
+    "userId": "user6",
+    "userName": "한마이크로프론트",
+    "userAvatar": "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&q=80",
+    "content": "마이크로프론트엔드 아키텍처 강의 정말 어려웠지만 보람있었습니다. 대규모 프로젝트를 다루는 회사로 이직하면서 배운 내용이 큰 도움이 되고 있어요. 복잡한 시스템 설계에 자신감이 생겼습니다!",
+    "createdAt": "2024-02-10T10:45:00Z"
+  }
+]
