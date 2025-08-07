@@ -1,9 +1,4 @@
-const { ApperClient } = window.ApperSDK;
-
-const apperClient = new ApperClient({
-  apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
-  apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
-});
+// ApperClient will be initialized in each method to avoid timing issues with SDK loading
 
 export const videoService = {
   async getAll() {
@@ -30,6 +25,11 @@ export const videoService = {
         ]
       };
       
+const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
       const response = await apperClient.fetchRecords("video", params);
       
       if (!response.success) {
@@ -68,6 +68,11 @@ export const videoService = {
         ]
       };
       
+const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
       const response = await apperClient.getRecordById("video", parseInt(id), params);
       
       if (!response.success) {
@@ -117,6 +122,11 @@ export const videoService = {
         ]
       };
       
+const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
       const response = await apperClient.fetchRecords("video", params);
       
       if (!response.success) {
@@ -206,6 +216,11 @@ export const videoService = {
         records: [updateableData]
       };
       
+const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
       const response = await apperClient.createRecord("video", params);
       
       if (!response.success) {
@@ -266,6 +281,11 @@ export const videoService = {
         records: [updateableData]
       };
       
+const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
       const response = await apperClient.updateRecord("video", params);
       
       if (!response.success) {
@@ -330,6 +350,11 @@ export const videoService = {
         RecordIds: [parseInt(id)]
       };
       
+const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
       const response = await apperClient.deleteRecord("video", params);
       
       if (!response.success) {
