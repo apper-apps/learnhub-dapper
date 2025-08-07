@@ -1,9 +1,44 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from 'react-redux';
 import { motion, AnimatePresence } from "framer-motion";
+import { AuthContext } from "@/App";
 import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
 
+const AuthButtons = ({ mobile = false }) => {
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const authContext = useContext(AuthContext);
+  
+  if (isAuthenticated) {
+    return (
+      <Button 
+        variant="ghost" 
+        size="sm" 
+        className={mobile ? "justify-center" : ""}
+        onClick={authContext?.logout}
+      >
+        <ApperIcon name="LogOut" className="w-4 h-4" />
+        로그아웃
+      </Button>
+    );
+  }
+  
+  return (
+    <>
+      <Link to="/login">
+        <Button variant="ghost" size="sm" className={mobile ? "justify-center w-full" : ""}>
+          로그인
+        </Button>
+      </Link>
+      <Link to="/signup">
+        <Button variant="primary" size="sm" className={mobile ? "justify-center w-full" : ""}>
+          회원가입
+        </Button>
+      </Link>
+    </>
+  );
+};
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -49,14 +84,9 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Auth Buttons */}
+{/* Auth Buttons */}
           <div className="hidden lg:flex items-center space-x-3">
-            <Button variant="ghost" size="sm">
-              로그인
-            </Button>
-            <Button variant="primary" size="sm">
-              회원가입
-            </Button>
+            <AuthButtons />
           </div>
 
           {/* Mobile menu button */}
@@ -96,13 +126,8 @@ const Header = () => {
                   {item.label}
                 </Link>
               ))}
-              <div className="flex flex-col space-y-2 pt-4 border-t border-gray-200">
-                <Button variant="ghost" size="sm" className="justify-center">
-                  로그인
-                </Button>
-                <Button variant="primary" size="sm" className="justify-center">
-                  회원가입
-                </Button>
+<div className="flex flex-col space-y-2 pt-4 border-t border-gray-200">
+                <AuthButtons mobile />
               </div>
             </div>
           </motion.div>

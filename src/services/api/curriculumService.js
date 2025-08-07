@@ -1,70 +1,253 @@
-const delay = () => new Promise(resolve => setTimeout(resolve, 500));
+const { ApperClient } = window.ApperSDK;
 
-// Mock curricula data
-let curricula = [
-  {
-    Id: 1,
-    name: "React 기초 과정",
-    description: "React 개발의 기초부터 중급까지",
-    category: "membership",
-    createdAt: "2024-01-15T09:00:00Z"
-  },
-  {
-    Id: 2,
-    name: "고급 React 패턴",
-    description: "React의 고급 패턴과 아키텍처",
-    category: "master",
-    createdAt: "2024-02-01T11:00:00Z"
-  }
-];
+const apperClient = new ApperClient({
+  apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+  apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+});
 
 export const curriculumService = {
   async getAll() {
-    await delay();
-    return [...curricula].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    try {
+      const params = {
+        fields: [
+          { field: { Name: "Name" } },
+          { field: { Name: "Tags" } },
+          { field: { Name: "description" } },
+          { field: { Name: "category" } },
+          { field: { Name: "createdAt" } }
+        ],
+        orderBy: [
+          { fieldName: "createdAt", sorttype: "DESC" }
+        ]
+      };
+      
+      const response = await apperClient.fetchRecords("curriculum", params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+      
+      return response.data || [];
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error fetching curricula:", error?.response?.data?.message);
+      } else {
+        console.error(error.message);
+      }
+      throw error;
+    }
   },
 
   async getById(id) {
-    await delay();
-    const curriculum = curricula.find(c => c.Id === parseInt(id));
-    if (!curriculum) throw new Error("Curriculum not found");
-    return { ...curriculum };
+    try {
+      const params = {
+        fields: [
+          { field: { Name: "Name" } },
+          { field: { Name: "Tags" } },
+          { field: { Name: "description" } },
+          { field: { Name: "category" } },
+          { field: { Name: "createdAt" } }
+        ]
+      };
+      
+      const response = await apperClient.getRecordById("curriculum", parseInt(id), params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+      
+      return response.data;
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error(`Error fetching curriculum with ID ${id}:`, error?.response?.data?.message);
+      } else {
+        console.error(error.message);
+      }
+      throw error;
+    }
   },
 
   async getByCategory(category) {
-    await delay();
-    return [...curricula]
-      .filter(curriculum => curriculum.category === category)
-      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    try {
+      const params = {
+        fields: [
+          { field: { Name: "Name" } },
+          { field: { Name: "Tags" } },
+          { field: { Name: "description" } },
+          { field: { Name: "category" } },
+          { field: { Name: "createdAt" } }
+        ],
+        where: [
+          {
+            FieldName: "category",
+            Operator: "EqualTo",
+            Values: [category]
+          }
+        ],
+        orderBy: [
+          { fieldName: "createdAt", sorttype: "DESC" }
+        ]
+      };
+      
+      const response = await apperClient.fetchRecords("curriculum", params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+      
+      return response.data || [];
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error fetching curricula by category:", error?.response?.data?.message);
+      } else {
+        console.error(error.message);
+      }
+      throw error;
+    }
   },
 
   async create(curriculumData) {
-    await delay();
-    const highestId = Math.max(...curricula.map(c => c.Id), 0);
-    const newCurriculum = {
-      ...curriculumData,
-      Id: highestId + 1,
-      createdAt: new Date().toISOString()
-    };
-    curricula.push(newCurriculum);
-    return { ...newCurriculum };
+    try {
+      // Only include updateable fields
+      const updateableData = {
+        Name: curriculumData.Name || curriculumData.name,
+        Tags: curriculumData.Tags || "",
+        description: curriculumData.description,
+        category: curriculumData.category,
+        createdAt: new Date().toISOString()
+      };
+      
+      const params = {
+        records: [updateableData]
+      };
+      
+      const response = await apperClient.createRecord("curriculum", params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+      
+      if (response.results) {
+        const successfulRecords = response.results.filter(result => result.success);
+        const failedRecords = response.results.filter(result => !result.success);
+        
+        if (failedRecords.length > 0) {
+          console.error(`Failed to create curricula ${failedRecords.length} records:${JSON.stringify(failedRecords)}`);
+          
+          failedRecords.forEach(record => {
+            record.errors?.forEach(error => {
+              throw new Error(`${error.fieldLabel}: ${error.message}`);
+            });
+            if (record.message) throw new Error(record.message);
+          });
+        }
+        
+        return successfulRecords.length > 0 ? successfulRecords[0].data : null;
+      }
+      
+      return null;
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error creating curriculum:", error?.response?.data?.message);
+      } else {
+        console.error(error.message);
+      }
+      throw error;
+    }
   },
 
   async update(id, curriculumData) {
-    await delay();
-    const index = curricula.findIndex(c => c.Id === parseInt(id));
-    if (index === -1) throw new Error("Curriculum not found");
-    
-    curricula[index] = { ...curricula[index], ...curriculumData };
-    return { ...curricula[index] };
+    try {
+      // Only include updateable fields
+      const updateableData = {
+        Id: parseInt(id),
+        Name: curriculumData.Name || curriculumData.name,
+        Tags: curriculumData.Tags || "",
+        description: curriculumData.description,
+        category: curriculumData.category,
+        createdAt: curriculumData.createdAt
+      };
+      
+      const params = {
+        records: [updateableData]
+      };
+      
+      const response = await apperClient.updateRecord("curriculum", params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+      
+      if (response.results) {
+        const successfulUpdates = response.results.filter(result => result.success);
+        const failedUpdates = response.results.filter(result => !result.success);
+        
+        if (failedUpdates.length > 0) {
+          console.error(`Failed to update curricula ${failedUpdates.length} records:${JSON.stringify(failedUpdates)}`);
+          
+          failedUpdates.forEach(record => {
+            record.errors?.forEach(error => {
+              throw new Error(`${error.fieldLabel}: ${error.message}`);
+            });
+            if (record.message) throw new Error(record.message);
+          });
+        }
+        
+        return successfulUpdates.length > 0 ? successfulUpdates[0].data : null;
+      }
+      
+      return null;
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error updating curriculum:", error?.response?.data?.message);
+      } else {
+        console.error(error.message);
+      }
+      throw error;
+    }
   },
 
   async delete(id) {
-    await delay();
-    const index = curricula.findIndex(c => c.Id === parseInt(id));
-    if (index === -1) throw new Error("Curriculum not found");
-    
-    curricula.splice(index, 1);
-    return true;
+    try {
+      const params = {
+        RecordIds: [parseInt(id)]
+      };
+      
+      const response = await apperClient.deleteRecord("curriculum", params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+      
+      if (response.results) {
+        const successfulDeletions = response.results.filter(result => result.success);
+        const failedDeletions = response.results.filter(result => !result.success);
+        
+        if (failedDeletions.length > 0) {
+          console.error(`Failed to delete curricula ${failedDeletions.length} records:${JSON.stringify(failedDeletions)}`);
+          
+          failedDeletions.forEach(record => {
+            if (record.message) throw new Error(record.message);
+          });
+        }
+        
+        return successfulDeletions.length > 0;
+      }
+      
+      return false;
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error deleting curriculum:", error?.response?.data?.message);
+      } else {
+        console.error(error.message);
+      }
+      throw error;
+    }
   }
 };
