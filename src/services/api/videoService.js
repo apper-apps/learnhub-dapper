@@ -68,6 +68,14 @@ const apperClient = new ApperClient({
           { field: { Name: "createdAt" } }
         ]
 };
+
+    // Initialize ApperClient for this method
+    const { ApperClient } = window.ApperSDK;
+    const apperClient = new ApperClient({
+      apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+      apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+    });
+    
       const response = await apperClient.getRecordById("video", parseInt(id), params);
       
       if (!response.success) {
@@ -116,6 +124,14 @@ const apperClient = new ApperClient({
           { fieldName: "createdAt", sorttype: "DESC" }
         ]
 };
+
+    // Initialize ApperClient for this method
+    const { ApperClient } = window.ApperSDK;
+    const apperClient = new ApperClient({
+      apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+      apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+    });
+    
       const response = await apperClient.fetchRecords("video", params);
       
       if (!response.success) {
@@ -163,6 +179,14 @@ const apperClient = new ApperClient({
           { fieldName: "order", sorttype: "ASC" }
         ]
 };
+
+    // Initialize ApperClient for this method
+    const { ApperClient } = window.ApperSDK;
+    const apperClient = new ApperClient({
+      apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+      apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+    });
+    
       
       const response = await apperClient.fetchRecords("video", params);
       
@@ -204,6 +228,14 @@ const apperClient = new ApperClient({
       const params = {
         records: [updateableData]
 };
+
+    // Initialize ApperClient for this method
+    const { ApperClient } = window.ApperSDK;
+    const apperClient = new ApperClient({
+      apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+      apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+    });
+    
       const response = await apperClient.createRecord("video", params);
       
       if (!response.success) {
@@ -263,6 +295,14 @@ const apperClient = new ApperClient({
       const params = {
         records: [updateableData]
 };
+
+    // Initialize ApperClient for this method
+    const { ApperClient } = window.ApperSDK;
+    const apperClient = new ApperClient({
+      apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+      apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+    });
+    
       const response = await apperClient.updateRecord("video", params);
       
       if (!response.success) {
@@ -326,6 +366,14 @@ const apperClient = new ApperClient({
       const params = {
         RecordIds: [parseInt(id)]
 };
+
+    // Initialize ApperClient for this method
+    const { ApperClient } = window.ApperSDK;
+    const apperClient = new ApperClient({
+      apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+      apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+    });
+    
       const response = await apperClient.deleteRecord("video", params);
       
       if (!response.success) {
