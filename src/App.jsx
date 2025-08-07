@@ -25,7 +25,8 @@ function App() {
           <Route path="/testimonials" element={<TestimonialsPage />} />
           <Route path="/video/:id" element={<VideoPlayerPage />} />
           <Route path="/article/:id" element={<ArticleViewerPage />} />
-          <Route path="/upload-video/:category" element={<VideoUploadPage />} />
+<Route path="/upload-video/:category" element={<VideoUploadPage />} />
+<Route path="/curriculum-upload/:category" element={<VideoUploadPage />} />
           <Route path="/edit-video/:id" element={<VideoEditPage />} />
           <Route path="/upload-article" element={<ArticleUploadPage />} />
           <Route path="/edit-article/:id" element={<ArticleEditPage />} />

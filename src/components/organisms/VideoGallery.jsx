@@ -1,20 +1,21 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
+import CurriculumUploadModal from "@/components/organisms/CurriculumUploadModal";
+import { videoService } from "@/services/api/videoService";
+import ApperIcon from "@/components/ApperIcon";
 import VideoThumbnail from "@/components/molecules/VideoThumbnail";
-import Button from "@/components/atoms/Button";
 import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
 import Empty from "@/components/ui/Empty";
-import ApperIcon from "@/components/ApperIcon";
-import { videoService } from "@/services/api/videoService";
-
+import Button from "@/components/atoms/Button";
 const VideoGallery = ({ category, title }) => {
-  const [videos, setVideos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
+const [videos, setVideos] = useState([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState(null);
+const [showCurriculumModal, setShowCurriculumModal] = useState(false);
+const navigate = useNavigate();
 
   const loadVideos = async () => {
     try {
@@ -31,10 +32,10 @@ const VideoGallery = ({ category, title }) => {
 
   useEffect(() => {
     loadVideos();
-  }, [category]);
+}, [category]);
 
   const handleUpload = () => {
-    navigate(`/upload-video/${category}`);
+    setShowCurriculumModal(true);
   };
 
   const handleEdit = (videoId) => {
@@ -129,8 +130,18 @@ const VideoGallery = ({ category, title }) => {
               />
             </motion.div>
           ))}
-        </motion.div>
+</motion.div>
       )}
+
+      <CurriculumUploadModal
+        isOpen={showCurriculumModal}
+        onClose={() => setShowCurriculumModal(false)}
+        category={category}
+        onSuccess={() => {
+          setShowCurriculumModal(false);
+          loadVideos();
+        }}
+      />
     </div>
   );
 };

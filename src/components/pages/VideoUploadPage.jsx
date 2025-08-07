@@ -12,15 +12,16 @@ const VideoUploadPage = () => {
   const { category } = useParams();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    thumbnailUrl: "",
-    videoUrl: "",
-    duration: "",
-    allowedRoles: ["free"],
-    isPinned: false
-  });
+const [formData, setFormData] = useState({
+  title: "",
+  description: "",
+  thumbnailUrl: "",
+  videoUrl: "",
+  duration: "",
+  allowedRoles: ["free"],
+  isPinned: false,
+  curriculumId: ""
+});
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -39,12 +40,12 @@ const VideoUploadPage = () => {
 
     try {
       setIsSubmitting(true);
-      await videoService.create({
-        ...formData,
-        category,
-        curriculumId: `${category}-${Date.now()}`,
-        order: 1
-      });
+await videoService.create({
+  ...formData,
+  category,
+  curriculumId: formData.curriculumId || `${category}-${Date.now()}`,
+  order: 1
+});
       
       toast.success("영상이 성공적으로 업로드되었습니다");
       navigate(`/${category}`);

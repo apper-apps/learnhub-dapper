@@ -32,6 +32,13 @@ export const videoService = {
       });
   },
 
+  async getByCurriculum(curriculumId) {
+    await delay();
+    return [...videos]
+      .filter(video => video.curriculumId === curriculumId)
+      .sort((a, b) => (a.order || 0) - (b.order || 0));
+  },
+
   async create(videoData) {
     await delay();
     const highestId = Math.max(...videos.map(v => v.Id), 0);
@@ -51,6 +58,17 @@ export const videoService = {
     
     videos[index] = { ...videos[index], ...videoData };
     return { ...videos[index] };
+  },
+
+  async updateOrder(videoId, newOrder, curriculumId) {
+    await delay();
+    const video = videos.find(v => v.Id === parseInt(videoId));
+    if (!video) throw new Error("Video not found");
+    
+    video.order = newOrder;
+    if (curriculumId) video.curriculumId = curriculumId;
+    
+    return { ...video };
   },
 
   async delete(id) {
