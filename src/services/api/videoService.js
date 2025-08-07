@@ -1,36 +1,80 @@
 // ApperClient will be initialized in each method to avoid timing issues with SDK loading
 
 export const videoService = {
-  async getAll() {
+async getAll() {
     try {
+      // Initialize ApperClient for this method
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+
       const params = {
         fields: [
-          { field: { Name: "Name" } },
-          { field: { Name: "Tags" } },
-          { field: { Name: "title" } },
-          { field: { Name: "description" } },
-          { field: { Name: "thumbnailUrl" } },
-          { field: { Name: "videoUrl" } },
-          { field: { Name: "category" } },
-          { field: { Name: "allowedRoles" } },
-          { field: { Name: "isPinned" } },
-          { field: { Name: "curriculumId" } },
-          { field: { Name: "order" } },
-          { field: { Name: "duration" } },
-          { field: { Name: "createdAt" } }
-        ],
-        orderBy: [
-          { fieldName: "isPinned", sorttype: "DESC" },
-          { fieldName: "createdAt", sorttype: "DESC" }
+          {
+            field: {
+              Name: "Name"
+            }
+          },
+          {
+            field: {
+              Name: "title"
+            }
+          },
+          {
+            field: {
+              Name: "description"
+            }
+          },
+          {
+            field: {
+              Name: "thumbnailUrl"
+            }
+          },
+          {
+            field: {
+              Name: "videoUrl"
+            }
+          },
+          {
+            field: {
+              Name: "category"
+            }
+          },
+          {
+            field: {
+              Name: "allowedRoles"
+            }
+          },
+          {
+            field: {
+              Name: "isPinned"
+            }
+          },
+          {
+            field: {
+              Name: "curriculumId"
+            }
+          },
+          {
+            field: {
+              Name: "order"
+            }
+          },
+          {
+            field: {
+              Name: "duration"
+            }
+          },
+          {
+            field: {
+              Name: "createdAt"
+            }
+          }
         ]
-};
+      };
 
-// Initialize ApperClient once for the entire module
-const { ApperClient } = window.ApperSDK;
-const apperClient = new ApperClient({
-  apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
-  apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
-});
       const response = await apperClient.fetchRecords("video", params);
       
       if (!response.success) {
