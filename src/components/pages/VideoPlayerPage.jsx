@@ -1,7 +1,9 @@
+import { useParams } from "react-router-dom";
 import VideoPlayer from "@/components/organisms/VideoPlayer";
-
 const VideoPlayerPage = () => {
-  return <VideoPlayer />;
+const { id } = useParams();
+  
+  return <VideoPlayer videoId={id} />;
 };
 
 export default VideoPlayerPage;
